@@ -1,0 +1,133 @@
+$charcoal: #222;
+$smoke: #ccc;
+
+* {
+	font-family: Helvetica, Arial, sans-serif;
+	box-sizing: border-box;
+	font-size: 0;
+}
+
+body {
+	margin: 0;
+}
+
+html {
+	font-size: 14px;
+}
+
+h1 {
+	font-size: 3rem;
+}
+
+h2 {
+	font-size: 2rem;
+}
+
+h3 {
+	font-size: 1.5rem;
+}
+
+p,a,span,input,h4,h5,h6,button {
+	font-size: 1rem;
+}
+
+button {
+	outline: none;
+	border: .1px solid #222;
+	border-radius: 15%;
+	background: white;
+}
+
+.not-there {
+	display: none;
+}
+
+// modals
+
+.modal-container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background: #222;
+    opacity: .5;
+    text-align: center;
+    padding-top: 25vh;
+}
+
+.modal {
+	width: 400px;
+	margin: 0 auto;
+	background: white;
+	border: 5px solid #222;
+	position: relative;
+}
+
+// buttons
+
+.close-button {
+	position: absolute;
+	top: 3px;
+	right: 3px;
+}
+
+.add-button-container {
+	text-align: center;
+	padding: 1rem;
+}
+
+.add-list-button-container {
+	border: 1px solid $charcoal;
+}
+
+.add-list-button {
+	background: teal;
+	color: white;
+}
+
+.delete-button {
+	position: absolute;
+	top: 50%;
+	right: 1rem;
+	transform: translateY(-50%);
+}
+
+// lists
+
+
+.lists-container {
+	width: 80%;
+	margin: auto;
+
+	.list {
+		border: 1px solid $charcoal;
+		border-bottom: none;
+
+		.list-header {
+			h2,button {
+				display: inline-block;
+			}
+			position: relative;
+			padding: 1rem;
+		}
+
+		.list-items-container {
+			border-top: .5px solid $smoke;
+			transition: .5s ease max-height, .5s ease border-top-width;
+			overflow: hidden;
+			text-align: left;
+		}
+
+		.list-item {
+			padding: 1rem 2rem;
+			text-align: left;
+
+			h3 {
+				margin: 0;
+			}
+
+			p {
+				margin: 5px 0;
+			}
+		}
+	}
+}

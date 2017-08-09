@@ -1,0 +1,1 @@
+console.error("SyntaxError: /Users/justinrichards/dev/apps/coolist/src/scripts/utils.js: Unexpected token, expected ( (85:4) while parsing file: /Users/justinrichards/dev/apps/coolist/src/scripts/utils.js");
