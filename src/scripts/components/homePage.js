@@ -1,79 +1,65 @@
 import React from 'react'
 import request from 'superagent'
 
-import List from './list.js'
+import ListsContainer from './listsContainer.js'
+import loader from './loader.js'
 import * as utils from '../utils.js'
 
 class HomePage extends React.Component {
 	constructor(props) {
 		super(props)
-		this.handleListCreate = this.handleListCreate.bind(this)
-		this.loadLists = this.loadLists.bind(this)
+		this.loadItems = this.loadItems.bind(this)
 	}
 
 	componentWillMount() {
-		this.loadLists()
+		this.loadItems()
 	}
 
-	handleListCreate() {
+	loadItems() {
 		this.props.dispatch({
-			type: "OPEN_MODAL",
-			modalData: {
-				name: "addList"
-			}
+			type: 'START_ITEMS_LOADING'
 		})
-	}
-
-	loadLists() {
 		this.props.dispatch({
-			type: 'START_LOADING'
+			type: 'START_LISTS_LOADING'
 		})
 		request
-			.get('/api/list')
-			.query({
-				groupId: utils.getCurrentUser().group_id
-			})
+			.get('/api/item')
+			.query({groupId: utils.getCurrentUser().groupId})
 			.end((err,res)=>{
 				this.props.dispatch({
-					type: 'END_LOADING'
+					type: 'END_ITEMS_LOADING'
 				})
-				res.body.forEach(list=>
-					this.props.dispatch({
-						type: "ADD_LIST",
-						list: list
-					})
-				)
+				this.props.dispatch({
+					type: "SET_ALL_ITEMS",
+					items: res.body
+				})
+			})
+
+
+		request
+			.get('/api/list')
+			.query({groupId: utils.getCurrentUser().groupId})
+			.end((err,res)=>{
+				this.props.dispatch({
+					type: 'END_LISTS_LOADING'
+				})
+				this.props.dispatch({
+					type: "SET_ALL_LISTS",
+					lists: res.body
+				})
 			})
 	} 
 	
 
 
 	render() {
-		console.log(this.props)
 		return (
 			<div className='home-page' >
 				<header>
 					{utils.getCurrentUser().name}'s coolist
 					<button onClick={utils.logout}>logout</button>
 				</header>
-				<div className={`${this.props.listsLoaded ? '' : 'not-there'} lists-container`}>
-					{utils.map(this.props.lists,
-						list =>
-							<List 
-								key={list._id} 
-								list={list} 
-								addingItem={this.props.listBeingAddedTo === list._id}
-								{...this.props} 
-							/>
-						)
-					}
-					<div className="add-button-container add-list-button-container">
-						<button className="add-button add-list-button" onClick={this.handleListCreate}>+</button>
-					</div>
-				</div>
-				<div className={`${this.props.listsLoaded ? 'not-there' : ''} loader`}>
-					<p>getting some nice lists for you...</p>
-				</div>
+				<ListsContainer {...this.props} loaded={this.props.listsLoaded} />
 			</div>
 			)
 	}

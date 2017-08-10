@@ -28,7 +28,6 @@ export const login = (email,password) =>
 				alert('error loggin in')
 			}
 			else {
-				console.log(res)
 				updateCurrentUser(res.body)
 				location.hash = 'home'
 			}
@@ -74,6 +73,8 @@ export const removeById = (obj,id) => {
 			newObj[idKey] = obj[idKey]
 		}
 	}
+	console.log(id)
+	console.log(Object.keys(obj), Object.keys(newObj))
 	return newObj
 }
 
@@ -82,7 +83,7 @@ export const updateCurrentUser = (user) => {
 }
 
 export const where = (arr,criteria) => {
-	if !(arr instanceof Array) {
+	if (!(arr instanceof Array)) {
 		arr = Object.values(arr)
 	}
 	for (var i = 0; i < arr.length; i ++) {

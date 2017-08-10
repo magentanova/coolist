@@ -10,6 +10,7 @@ const itemSchema = new Schema({
 	claimed: {type: Boolean, default: false},
 	acquired: {type: Boolean, default: false},
 	listId: {type: String, required: true},
+	listName: {type: String, required: true},
 	groupId: {type: String, required: true},
 	claimedBy: {type: Schema.ObjectId, ref: 'User'}
 })

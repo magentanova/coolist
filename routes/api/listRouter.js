@@ -1,7 +1,8 @@
 let Router = require('express').Router;
 const listRouter = Router()
 
-let	List = require('../../db/schemas/listSchema.js').List
+let	List = require('../../db/schemas/listSchema.js').List,
+	Item = require('../../db/schemas/itemSchema.js').Item
 
 listRouter
 	.get(`/list`, function(req, res){
@@ -48,13 +49,18 @@ listRouter
 	})
 
 	.delete(`/list/:_id`, function(req, res){
-		List.remove({ _id: req.params._id}, (err) => {
-			if(err) return res.json(err)
-			res.json({
-				msg: `record ${req.params._id} successfully deleted`,
-				_id: req.params._id
+		// delete all items belonging to the list, then delete the list itself.
+		Item.remove({listid: req.params._id}, (err) => {
+			if (err) return res.json(err)
+			List.remove({ _id: req.params._id}, (err) => {
+				if(err) return res.json(err)
+				res.json({
+					msg: `record ${req.params._id} successfully deleted`,
+					_id: req.params._id
+				})
 			})
 		})
+		
 	})
 
 module.exports = listRouter

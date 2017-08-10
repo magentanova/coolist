@@ -10,7 +10,7 @@ class AddList extends React.Component {
 		this.handleSubmitList = this.handleSubmitList.bind(this)
 	}
 
-	componentDidUpdate() {
+	componentDidMount() {
 		if (this.props.modal) this.inputEl.focus()
 	}
 
@@ -25,8 +25,8 @@ class AddList extends React.Component {
 		request
 			.post('/api/list')
 			.send({
-				title: e.target.listName.value,
-				groupId: utils.getCurrentUser().group_id
+				name: e.target.listName.value,
+				groupId: utils.getCurrentUser().groupId
 			})
 			.set('Accept','application/json')
 			.end((err,res) => {

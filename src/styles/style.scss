@@ -1,5 +1,7 @@
 $charcoal: #222;
 $smoke: #ccc;
+$blue: rgba(44, 68, 220, .5);
+$pink: rgba(101, 37, 219, .5);
 
 * {
 	font-family: Helvetica, Arial, sans-serif;
@@ -39,9 +41,16 @@ button {
 }
 
 .not-there {
-	display: none;
+	display: none !important;
 }
 
+.his {
+	background: $blue;
+}
+
+.hers {
+	background: $pink;
+}
 // modals
 
 .modal-container {
@@ -91,9 +100,13 @@ button {
 	transform: translateY(-50%);
 }
 
+//loader
+.loader {
+	width: 100%;
+	text-align: center;
+}
+
 // lists
-
-
 .lists-container {
 	width: 80%;
 	margin: auto;
@@ -120,6 +133,9 @@ button {
 		.list-item {
 			padding: 1rem 2rem;
 			text-align: left;
+			position: relative;
+			display: flex;
+			justify-content: space-between;
 
 			h3 {
 				margin: 0;
@@ -127,6 +143,14 @@ button {
 
 			p {
 				margin: 5px 0;
+			}
+
+			.flex-wrapper {
+				flex: 1;
+			}
+
+			.flex-wrapper-center {
+				text-align: center;
 			}
 		}
 	}

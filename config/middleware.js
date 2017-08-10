@@ -13,7 +13,6 @@ const errorHandler = function(err, req, res, next) {
 
 const cookifyUser = function(req,res,next) {
   if (req.user) {
-    console.log(req.user)
     res.cookie('coolist' + '_user',JSON.stringify(req.user))
     next()
   }

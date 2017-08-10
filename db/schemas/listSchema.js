@@ -6,9 +6,8 @@ const Schema = mongoose.Schema;
 // USERS
 // ----------------------
 const listSchema = new Schema({
-	title: {type: String, required: true},
-	groupId: {type: String, required: true},
-	items: [{type: Schema.ObjectId, ref: 'Item'}]
+	name: {type: String, required: true},
+	groupId: {type: String, required: true}
 })
 
 module.exports = {
