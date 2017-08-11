@@ -3,7 +3,7 @@ import LoginPage from './loginPage'
 import HomePage from './homePage'
 import store from '../state'
 
-import {AddList} from './modals'
+import {AddList,DeleteList} from './modals'
 
 
 class AppView extends React.Component {
@@ -13,7 +13,8 @@ class AppView extends React.Component {
 		this['login'] = LoginPage
 		this['home'] = HomePage
 		this.modals = {
-			addList: AddList
+			addList: AddList,
+			deleteList: DeleteList
 		}
 		store.subscribe(() => {
 			this.setState(store.getState())

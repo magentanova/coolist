@@ -6,16 +6,16 @@ import loader from './loader.js'
 import * as utils from '../utils.js'
 
 class List extends React.Component {
-	handleDeleteList = e => {
-		request
-			.delete(`/api/list/${this.props.list._id}`)
-			.end((err,res) => {
-				this.props.dispatch({
-					type: 'REMOVE_LIST',
-					listId: res.body._id
-				})
-			})
-	};
+
+	handleDeletePrompt = e => {
+		this.props.dispatch({
+			type: "OPEN_MODAL",
+			modalData: {
+				list: this.props.list,
+				name: 'deleteList'
+			}
+		})
+	}
 
 	handleExpandList = e => {
 		this.props.dispatch({
@@ -30,8 +30,8 @@ class List extends React.Component {
 				<div className='list-header'>
 					<h2 onClick={this.handleExpandList} >{this.props.list.name}</h2>
 					<button 
-						className='delete-button' 
-						onClick={this.handleDeleteList} >
+						className='delete-button delete-list-button' 
+						onClick={this.handleDeletePrompt} >
 						X
 					</button>
 				</div>

@@ -16,7 +16,7 @@ class ItemsContainer extends React.Component {
 
 	render() {
 		var styleObj = {
-			"maxHeight": this.props.expandedList === this.props.list._id ? 60 * (this.props.items.length + 1) + 'px' : '0px',
+			"maxHeight": this.props.expandedList === this.props.list._id ? 60 * (this.props.items.length + 2) + 'px' : '0px',
 			"borderTopWidth": this.props.expandedList === this.props.list._id ? '.5px' : '0px'
 		}
 		return (

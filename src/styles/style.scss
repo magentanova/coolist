@@ -1,7 +1,9 @@
 $charcoal: #222;
 $smoke: #ccc;
-$blue: rgba(44, 68, 220, .5);
-$pink: rgba(101, 37, 219, .5);
+$bgColor: #D0E3C4;
+$accentColor: #C05746;
+$hisColor: #6E8898;
+$herColor: #F1BF98;
 
 * {
 	font-family: Helvetica, Arial, sans-serif;
@@ -11,6 +13,8 @@ $pink: rgba(101, 37, 219, .5);
 
 body {
 	margin: 0;
+	background: $bgColor;
+	z-index: -1
 }
 
 html {
@@ -33,11 +37,27 @@ p,a,span,input,h4,h5,h6,button {
 	font-size: 1rem;
 }
 
+header {
+	text-align: right;
+	margin: 2rem 0;
+}
+
+.container {
+	width: 80%;
+	margin: auto;
+
+	@media (min-width: 900px) {
+		width: 40%;
+	}
+}
+
 button {
 	outline: none;
 	border: .1px solid #222;
-	border-radius: 15%;
-	background: white;
+	border-radius: 7%;
+	background: #eee;
+	cursor: pointer;
+	padding: .5rem 1rem;
 }
 
 .not-there {
@@ -45,22 +65,24 @@ button {
 }
 
 .his {
-	background: $blue;
+	background: $hisColor;
 }
 
 .hers {
-	background: $pink;
+	background: $herColor;
 }
 // modals
 
 .modal-container {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
-    position: relative;
-    background: #222;
-    opacity: .5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.7);
     text-align: center;
     padding-top: 25vh;
+    z-index: 1
 }
 
 .modal {
@@ -69,6 +91,11 @@ button {
 	background: white;
 	border: 5px solid #222;
 	position: relative;
+	padding: 2rem;
+
+	button {
+		margin: 0 1rem;
+	}
 }
 
 // buttons
@@ -85,11 +112,11 @@ button {
 }
 
 .add-list-button-container {
-	border: 1px solid $charcoal;
+	border-top: 1px solid $accentColor;
 }
 
 .add-list-button {
-	background: teal;
+	background: darken($bgColor,35);
 	color: white;
 }
 
@@ -100,6 +127,10 @@ button {
 	transform: translateY(-50%);
 }
 
+.delete-list-button {
+	background: lighten($accentColor,40);
+}
+
 //loader
 .loader {
 	width: 100%;
@@ -108,16 +139,19 @@ button {
 
 // lists
 .lists-container {
-	width: 80%;
-	margin: auto;
+	border: 1px solid $accentColor;
 
 	.list {
-		border: 1px solid $charcoal;
-		border-bottom: none;
+		border-top: 1px solid $accentColor;
+		&:first-child {
+			border-top: none;
+		}
 
 		.list-header {
 			h2,button {
+				cursor: pointer;
 				display: inline-block;
+				font-weight: normal;
 			}
 			position: relative;
 			padding: 1rem;
@@ -136,13 +170,16 @@ button {
 			position: relative;
 			display: flex;
 			justify-content: space-between;
+			align-items: center;
 
 			h3 {
 				margin: 0;
+				font-weight: normal;
 			}
 
 			p {
 				margin: 5px 0;
+				font-weight: normal;
 			}
 
 			.flex-wrapper {
@@ -151,6 +188,10 @@ button {
 
 			.flex-wrapper-center {
 				text-align: center;
+			}
+
+			.claim-button {
+				width: 5.5rem;
 			}
 		}
 	}

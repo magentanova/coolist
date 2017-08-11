@@ -59,4 +59,26 @@ class AddList extends React.Component {
 	}
 }
 
-export {AddList}
+const handleDeleteList = props => 
+		request
+			.delete(`/api/list/${props.modal.list._id}`)
+			.end((err,res) => {
+				props.dispatch({
+					type: 'REMOVE_LIST',
+					listId: res.body._id
+				})
+				props.dispatch({
+					type: "CLOSE_MODAL"
+				})
+			})
+
+
+
+const DeleteList = props =>
+	<div className="modal">
+		<h2>sure you want to delete list {props.modal.list.name}?</h2>
+		<button className="submit-button" onClick={()=>handleDeleteList(props)}>yes</button>
+		<button className="cancel-button" onClick={()=>props.dispatch({type:'CLOSE_MODAL'})}>never mind</button>
+	</div>
+
+export {AddList, DeleteList}
