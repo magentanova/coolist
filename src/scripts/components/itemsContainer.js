@@ -2,6 +2,7 @@ import React from 'react'
 import request from 'superagent'
 
 import Item from './item.js'
+import ZoomInput from './zoomInput.js'
 import loader from './loader.js'
 import * as utils from '../utils.js'
 
@@ -74,18 +75,13 @@ class ItemAdder extends React.Component {
 		e.target.itemName.value = ''
 	}
 
-	componentDidUpdate() {
-		if (this.props.addingItem) this.inputEl.focus()
-	}
-
 	render() {
 		return (
 			<form 
 				className={`${this.props.addingItem ? '' : 'not-there'} list-item item-adder`}
 				onSubmit={this.handleItemAdd} >
-				<input 
+				<ZoomInput 
 					name="itemName"
-					ref={input=>this.inputEl = input} 
 					className="item-name" 
 					placeholder="give your item a name" 
 					/>

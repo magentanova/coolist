@@ -1,7 +1,23 @@
 import React from 'react'
 import request from 'superagent'
 
+import ZoomInput from './zoomInput.js'
 import * as utils from '../utils.js'
+
+class Modals extends React.Component {
+	constructor(props) {
+		super(props)
+	}
+
+	render() {
+		return (
+			<div>
+				<AddList {...this.props} active={this.props.modal.name === 'addList'}  />
+				<DeleteList {...this.props} active={this.props.modal.name === 'deleteList'} />
+			</div>
+			)
+	}
+}
 
 class AddList extends React.Component {
 	constructor(props) {
@@ -11,7 +27,7 @@ class AddList extends React.Component {
 	}
 
 	componentDidMount() {
-		if (this.props.modal) this.inputEl.focus()
+		if (this.props.modal) document.querySelector('.main-modal-input').focus()
 	}
 
 	handleClose() {
@@ -47,13 +63,15 @@ class AddList extends React.Component {
 
 	render() {		
 		return (
-			<div className="modal">
-				<button className="close-button" onClick={this.handleClose}>X</button>
-				<h2>Name Your List</h2>
-				<form onSubmit={this.handleSubmitList} className="add-list-form">
-					<input ref={el=>this.inputEl = el} name="listName" placeholder="shitlist" />
-					<button type="submit">Submit</button>
-				</form>
+			<div className={this.props.active ? 'modal-container' : 'modal-container not-there'}>
+				<div className="modal">
+					<button className="close-button" onClick={this.handleClose}>X</button>
+					<h2>Name Your List</h2>
+					<form onSubmit={this.handleSubmitList} className="add-list-form">
+						<ZoomInput className='main-modal-input' name="listName" placeholder="shitlist" />
+						<button type="submit">Submit</button>
+					</form>
+				</div>
 			</div>
 			)
 	}
@@ -75,10 +93,12 @@ const handleDeleteList = props =>
 
 
 const DeleteList = props =>
-	<div className="modal">
-		<h2>sure you want to delete list {props.modal.list.name}?</h2>
-		<button className="submit-button" onClick={()=>handleDeleteList(props)}>yes</button>
-		<button className="cancel-button" onClick={()=>props.dispatch({type:'CLOSE_MODAL'})}>never mind</button>
+	<div className={props.active ? 'modal-container' : 'modal-container not-there'}>
+		<div className="modal">
+			<h2>sure you want to delete list {props.active ? props.modal.list.name : ''}?</h2>
+			<button className="submit-button" onClick={()=>handleDeleteList(props)}>yes</button>
+			<button className="cancel-button" onClick={()=>props.dispatch({type:'CLOSE_MODAL'})}>never mind</button>
+		</div>
 	</div>
 
-export {AddList, DeleteList}
+export default Modals

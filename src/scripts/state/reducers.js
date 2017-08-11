@@ -103,12 +103,14 @@ export const listsLoaded = (state = false, action) => {
 }
 
 
-export const modal = (state=null,action) => {
+export const modal = (state= {name: null} ,action) => {
 	switch (action.type) {
 		case 'OPEN_MODAL': 
 			return {...action.modalData}
 		case 'CLOSE_MODAL': 
-			return null
+			return {
+				name: null
+			}
 		default: 
 			return state
 	}

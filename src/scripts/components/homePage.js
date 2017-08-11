@@ -57,7 +57,7 @@ class HomePage extends React.Component {
 			<div className='home-page' >
 				<header>
 					{utils.getCurrentUser().name}'s coolist
-					<button onTouch={utils.logout} onClick={utils.logout}>logout</button>
+					<button onClick={utils.logout}>logout</button>
 				</header>
 				<ListsContainer {...this.props} loaded={this.props.listsLoaded} />
 			</div>

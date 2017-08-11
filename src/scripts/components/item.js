@@ -61,7 +61,6 @@ class Item extends React.Component {
 	}
 
 	render() {
-		console.log(this.props)
 		var claimClass = '',
 			claimAction = 'claim'
 		if (this.props.item.claimedBy) {
