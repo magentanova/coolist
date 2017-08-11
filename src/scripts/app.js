@@ -1,7 +1,6 @@
 //libraries 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Backbone from 'backbone'
 
 //modules
 import AppView from './components/appView'
