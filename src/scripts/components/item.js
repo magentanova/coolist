@@ -75,7 +75,7 @@ class Item extends React.Component {
 		}
 		return (
 			<div className={'list-item ' + claimClass} >
-				<div className="flex-wrapper"><h3>{this.props.item.name}</h3></div>
+				<div className="flex-wrapper"><p>{this.props.item.name}</p></div>
 				<div className="flex-wrapper-center">
 					<button 
 						onClick={this.handleClaim} 

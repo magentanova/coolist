@@ -23,7 +23,7 @@ export const login = (email,password) =>
 		.set('Accept','application/json')
 		.end(function(err,res) {
 			if (err) {
-				console.log(user,pw)
+				console.log(email,pw)
 				console.log(err)
 				alert('error loggin in')
 			}
