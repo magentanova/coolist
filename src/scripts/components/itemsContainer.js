@@ -6,6 +6,7 @@ import ZoomInput from './zoomInput.js'
 import loader from './loader.js'
 import * as utils from '../utils.js'
 
+const LoaderItem = loader(Item)
 
 class ItemsContainer extends React.Component {
 	handleOpenAdder = e => {
@@ -25,8 +26,9 @@ class ItemsContainer extends React.Component {
 				{utils.map(
 					this.props.items, 
 					item => 
-						<Item 	
+						<LoaderItem 	
 							{...this.props} 
+							loaded={this.props.itemBeingDeleted !== item._id}
 							key={item._id} 
 							item={item} 
 						/>
@@ -47,10 +49,17 @@ class ItemsContainer extends React.Component {
 	}
 }
 
+const LoaderZoomInput = loader(ZoomInput)
 
+console.log(LoaderZoomInput)
 class ItemAdder extends React.Component {
 	handleItemAdd = e => {
 		e.preventDefault()
+		console.log('starting to load')
+		this.props.dispatch({
+			type: "ITEM_SAVING",
+			listId: this.props.list._id
+		})
 		request
 			.post('/api/item')
 			.send({
@@ -68,23 +77,28 @@ class ItemAdder extends React.Component {
 					type: "ADD_ITEM",
 					item: resp.body
 				})
+				console.log('done loading')
+				this.props.dispatch({
+					type: 'ITEM_SAVED'
+				})
+				this.props.dispatch({
+					type: "STOP_ADDING"
+				})
 			})
-		this.props.dispatch({
-			type: "STOP_ADDING"
-		})
 		e.target.itemName.value = ''
 	}
 
 	render() {
+		console.log(this.props.listSavingNewItem!== this.props.list._id)
 		return (
 			<form 
 				className={`${this.props.addingItem ? '' : 'not-there'} list-item item-adder`}
 				onSubmit={this.handleItemAdd} >
-				<ZoomInput 
+				<LoaderZoomInput 
 					name="itemName"
 					className="item-name" 
 					placeholder="give your item a name" 
-					/>
+					loaded={this.props.listSavingNewItem !== this.props.list._id} />
 			</form>
 		)
 	}

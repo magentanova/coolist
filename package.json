@@ -45,6 +45,7 @@
     "passport-local": "^1.0.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
+    "react-reorder": "^3.0.0-alpha.2",
     "redux": "^3.7.1",
     "redux-devtools": "^3.4.0",
     "superagent": "^3.5.2"

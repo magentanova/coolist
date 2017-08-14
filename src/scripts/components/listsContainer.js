@@ -3,6 +3,9 @@ import List from './list.js'
 import loader from './loader.js'
 import * as utils from '../utils.js'
 
+
+const LoaderList = loader(List)
+
 const handleListCreate = dispatch =>
 		dispatch({
 			type: "OPEN_MODAL",
@@ -10,6 +13,13 @@ const handleListCreate = dispatch =>
 				name: "addList"
 			}
 		})
+
+const AddListButton = props =>
+		<div className="add-button-container add-list-button-container">
+			<button className="add-button add-list-button" onClick={()=>handleListCreate(props.dispatch)}>+</button>
+		</div>
+
+const LoaderAddListButton = loader(AddListButton)
 
 const ListsContainer = props => {
 	// iterate once for the number of items, organizing them by list
@@ -22,16 +32,15 @@ const ListsContainer = props => {
 	return (
 		<div className='lists-container'>
 			{utils.map(props.lists, list =>
-				<List
+				<LoaderList 
 					{...props}
+					loaded={props.listBeingDeleted !== list._id}
 					key={list._id}
 					list={list}
 					items={itemsByList[list._id] || []}
 				/>
 			)}
-			<div className="add-button-container add-list-button-container">
-				<button className="add-button add-list-button" onClick={()=>handleListCreate(props.dispatch)}>+</button>
-			</div>
+			<LoaderAddListButton dispatch={props.dispatch} loaded={props.newListConfirmed} />
 		</div>
 		)
 }

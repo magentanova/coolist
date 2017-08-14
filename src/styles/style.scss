@@ -5,6 +5,7 @@ $accentColor: #C05746;
 $hisColor: #6E8898;
 $herColor: #F1BF98;
 
+// universals
 * {
 	font-family: Helvetica, Arial, sans-serif;
 	box-sizing: border-box;
@@ -17,6 +18,11 @@ body {
 	z-index: -1
 }
 
+img {
+	max-width: 100%;
+}
+
+// font-size ratios
 html {
 	font-size: 14px;
 	touch-action: manipulation;
@@ -45,6 +51,7 @@ header {
 	text-align: right;
 	margin: 2rem 0;
 }
+
 
 .container {
 	width: 80%;
@@ -148,11 +155,12 @@ button {
 // lists
 .lists-container {
 	border: 1px solid $accentColor;
+	border-top: none;
 
 	.list {
 		border-top: 1px solid $accentColor;
 		&:first-child {
-			border-top: none;
+			// border-top: none;
 		}
 
 		.list-header {
@@ -190,12 +198,17 @@ button {
 				font-weight: normal;
 			}
 
-			.flex-wrapper {
+			.flex-wrapper-item-name {
+				flex: 2;
+			}
+
+			.flex-wrapper-claim-button {
+				text-align: center;
 				flex: 1;
 			}
 
-			.flex-wrapper-center {
-				text-align: center;
+			.flex-wrapper-delete-button {
+				flex: 1;
 			}
 
 			.claim-button {

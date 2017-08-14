@@ -1,16 +1,5 @@
 import * as utils from '../utils.js'
 
-export const listBeingAddedTo = (state = null, action) => {
-	switch (action.type) {
-		case "SHOW_ADDER":
-			return action.listId
-		case "STOP_ADDING":
-			return null
-		default: 
-			return state
-	}
-}
-
 export const expandedList = (state = null, action) => {
 	switch (action.type) {
 		case "EXPAND_LIST":
@@ -21,6 +10,29 @@ export const expandedList = (state = null, action) => {
 			return state
 	}
 }
+
+export const itemBeingClaimed = (state = null, action) => {
+	switch (action.type) {
+		case 'CLAIMING': 
+			return action.itemId 
+		case 'CLAIMED':
+			return null
+		default: 
+			return state
+	}
+}
+
+export const itemBeingDeleted = (state = null, action) => {
+	switch (action.type) {
+		case 'DELETING_ITEM': 
+			return action.itemId 
+		case 'DELETED_ITEM':
+			return null
+		default: 
+			return state
+	}
+}
+
 
 export const items = (state={},action) => {
 	switch (action.type) {
@@ -70,6 +82,43 @@ export const itemsLoaded = (state = false, action) => {
 	}
 }
 
+
+export const listBeingAddedTo = (state = null, action) => {
+	switch (action.type) {
+		case "SHOW_ADDER":
+			return action.listId
+		case "STOP_ADDING":
+			return null
+		default: 
+			return state
+	}
+}
+
+export const listBeingDeleted = (state = null, action) => {
+	switch (action.type) {
+		case 'DELETING_LIST': 
+			return action.listId 
+		case 'DELETED_LIST':
+			return null
+		default: 
+			return state
+	}
+}
+
+
+
+export const listSavingNewItem = (state = null, action) => {
+	switch (action.type) {
+		case "ITEM_SAVING": 
+			return action.listId
+		case "ITEM_SAVED": 
+		console.log('item saved action dispatched')
+			return null
+		default: 
+			return state
+	}
+}
+
 export const lists = (state={},action) => {
 	switch (action.type) {
 		case 'ADD_LIST':
@@ -111,6 +160,17 @@ export const modal = (state= {name: null} ,action) => {
 			return {
 				name: null
 			}
+		default: 
+			return state
+	}
+}
+
+export const newListConfirmed = (state = true, action) => {
+	switch (action.type) {
+		case 'LIST_SAVING':
+			return false
+		case 'LIST_SAVED':
+			return true
 		default: 
 			return state
 	}

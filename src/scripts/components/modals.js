@@ -2,6 +2,7 @@ import React from 'react'
 import request from 'superagent'
 
 import ZoomInput from './zoomInput.js'
+import loader from './loader.js'
 import * as utils from '../utils.js'
 
 class Modals extends React.Component {
@@ -18,6 +19,11 @@ class Modals extends React.Component {
 			)
 	}
 }
+
+const AddButton = props =>
+	<button type="submit">Submit</button>
+
+const LoaderAddButton = loader(AddButton)
 
 class AddList extends React.Component {
 	constructor(props) {
@@ -38,6 +44,13 @@ class AddList extends React.Component {
 
 	handleSubmitList(e){
 		e.preventDefault()
+		this.props.dispatch({
+			type: "LIST_SAVING"
+		})
+		this.props.dispatch({
+			type: "CLOSE_MODAL"
+		})
+		e.target.value = ''
 		request
 			.post('/api/list')
 			.send({
@@ -56,6 +69,9 @@ class AddList extends React.Component {
 						type: 'ADD_LIST',
 						list: res.body
 					})
+					this.props.dispatch({
+						type: "LIST_SAVED"
+					})
 				}
 			})
 
@@ -69,7 +85,7 @@ class AddList extends React.Component {
 					<h2>Name Your List</h2>
 					<form onSubmit={this.handleSubmitList} className="add-list-form">
 						<ZoomInput className='main-modal-input' name="listName" placeholder="shitlist" />
-						<button type="submit">Submit</button>
+						<AddButton />
 					</form>
 				</div>
 			</div>
@@ -77,18 +93,27 @@ class AddList extends React.Component {
 	}
 }
 
-const handleDeleteList = props => 
-		request
-			.delete(`/api/list/${props.modal.list._id}`)
-			.end((err,res) => {
-				props.dispatch({
-					type: 'REMOVE_LIST',
-					listId: res.body._id
-				})
-				props.dispatch({
-					type: "CLOSE_MODAL"
-				})
+const handleDeleteList = props => {
+	props.dispatch({
+		type: "DELETING_LIST",	
+		listId: props.modal.list._id
+	})
+	props.dispatch({
+		type: "CLOSE_MODAL"
+	})
+	request	
+		.delete(`/api/list/${props.modal.list._id}`)
+		.end((err,res) => {
+			props.dispatch({
+				type: 'REMOVE_LIST',
+				listId: res.body._id
 			})
+			
+			props.dispatch({
+				type: "DELETED_LIST"
+			})
+		})
+	}
 
 
 

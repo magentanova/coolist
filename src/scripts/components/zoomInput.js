@@ -6,7 +6,6 @@ class ZoomInput extends React.Component {
 	}
 
 	unZoom(){
-		console.log('unzooming')
 		var viewportmeta = document.querySelector('meta[name="viewport"]')
 		viewportmeta.content = 'width=device-width, maximum-scale=1.0, initial-scale=1.0'
 		setTimeout(() => 
