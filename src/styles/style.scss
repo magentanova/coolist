@@ -71,9 +71,15 @@ button {
 	padding: .25rem .5srem;
 }
 
+// universals
 .not-there {
 	display: none !important;
 }
+
+.dragging {
+	opacity: .6;
+}
+//
 
 .his {
 	background: $hisColor;

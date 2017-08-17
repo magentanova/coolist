@@ -60,19 +60,19 @@ class Item extends React.Component {
 	}
 
 	render() {
-		var claimClass = '',
-			claimAction = 'claim'
+		const classes = utils.getClassName('list-item',{
+			dragging: this.props.isDragging,
+			his: this.props.item.claimedBy && this.props.item.claimedBy.name === 'justin',
+			hers: this.props.item.claimedBy && this.props.item.claimedBy.name === 'luba'
+		})
+		var claimAction = 'claim'
 		if (this.props.item.claimedBy) {
-			// set class/color
-			if (this.props.item.claimedBy.name === 'justin') claimClass = 'his'
-			if (this.props.item.claimedBy.name === 'luba') claimClass = 'hers'
-
 			// set claim function
 			if (utils.getCurrentUser()._id === this.props.item.claimedBy._id) claimAction = 'unclaim'
 			else claimAction = 'steal'
 		}
 		return (
-			<div className={'list-item ' + claimClass} >
+			<div className={classes} >
 				{this.props.connectDragSource(
 					<div className="flex-wrapper-item-name"><p>{this.props.item.name}</p></div>
 					)}

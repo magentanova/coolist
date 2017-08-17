@@ -9,9 +9,9 @@ import * as utils from '../utils.js'
 // 	to be parsimonious with imported libraries
 var Backend
 if (utils.mobileCheck()) {
-	Backend = require('react-dnd-touch-backend').TouchBackend
-	console.log(Backend)
+	Backend = require('react-dnd-touch-backend')
 }
+
 else {
 	Backend = require('react-dnd-html5-backend')
 }

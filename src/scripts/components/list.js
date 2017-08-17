@@ -33,6 +33,9 @@ function sourceCollect(connect,monitor) {
 
 const listTarget = {
 	canDrop(props,monitor) {
+		if (monitor.getItemType() === componentTypes.ITEM) {
+			return monitor.getItem().origListId !== props.list._id
+		}
 		return monitor.getItem().listId !== props.list._id
 	},
 
