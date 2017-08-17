@@ -1,11 +1,20 @@
 import React from 'react'
 import request from 'superagent'
 import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-
 import ListsContainer from './listsContainer.js'
 import loader from './loader.js'
 import * as utils from '../utils.js'
+
+// vv conditional imports not allowed. seems to be only way
+// 	to be parsimonious with imported libraries
+var Backend
+if (utils.mobileCheck()) {
+	Backend = require('react-dnd-touch-backend').TouchBackend
+	console.log(Backend)
+}
+else {
+	Backend = require('react-dnd-html5-backend')
+}
 
 class Page extends React.Component {
 	constructor(props) {
@@ -67,6 +76,6 @@ class Page extends React.Component {
 	}
 }
 	
-var HomePage = DragDropContext(HTML5Backend)(Page)
+var HomePage = DragDropContext(Backend)(Page)
 
 export default HomePage

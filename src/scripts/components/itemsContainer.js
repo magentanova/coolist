@@ -51,7 +51,6 @@ class ItemsContainer extends React.Component {
 
 const LoaderZoomInput = loader(ZoomInput)
 
-console.log(LoaderZoomInput)
 class ItemAdder extends React.Component {
 	handleItemAdd = e => {
 		e.preventDefault()
