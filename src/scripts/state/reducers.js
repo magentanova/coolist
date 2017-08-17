@@ -40,6 +40,10 @@ export const items = (state={},action) => {
 			var newState = {...state}
 			newState[action.item._id] = action.item
 			return newState
+		case 'CHANGE_PARENT_LIST': 
+			var newState = {...state}
+			newState[action.itemId].listId = action.newListId
+			return newState
 		case 'CLAIM_ITEM':
 			var newState = {...state},
 				oldItem = state[action.itemId]
@@ -135,6 +139,17 @@ export const lists = (state={},action) => {
 				state[list._id] = list
 			})
 			return state
+		case 'SWAP_LISTS': 
+			var newState = {...state}
+			newState[action.id1] = {
+				...state[action.id1],
+				index: state[action.id2].index
+			}
+			newState[action.id2] = {
+				...state[action.id2],
+				index: state[action.id1].index
+			}
+			return newState
 		default: 
 			return state
 	}

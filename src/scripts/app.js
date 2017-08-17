@@ -9,6 +9,18 @@ import AppView from './components/appView'
 import {getCurrentUser, init} from './utils.js'
 
 
+// browser fixes
+
+if (typeof Object.values !== 'function') {
+	Object.values = function(obj) {
+		var arr = []
+		for (var prop in obj) {
+			arr.push(obj[prop])
+		}
+		return arr
+	}
+}
+
 const app = function() {
   init()
   location.hash = getCurrentUser() ? 'home' : 'login'

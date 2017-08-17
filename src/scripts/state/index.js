@@ -6,4 +6,8 @@ const initialState = {
 
 const store = createStore(combineReducers({...reducers}))
 
+const dispatch = store.dispatch
+
 export default store
+
+export {dispatch}

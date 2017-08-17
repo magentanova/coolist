@@ -1,73 +1,34 @@
 import React from 'react'
 import request from 'superagent'
+import {DragSource} from 'react-dnd'
+
+import {componentTypes} from '../constants.js'
 import * as utils from '../utils.js'
+import LoaderClaimButton from './loaderClaimButton.js'
 
-import loader from './loader.js'
 
-
-class ClaimButton extends React.Component {
-	constructor(props) {
-		super(props)
-		this.handleClaim = this.handleClaim.bind(this)
-	}
-
-	handleClaim(e) {
-			var buttonVal = e.target.value,
-				actionType,
-				claimingEntity,
-				claimed
-			if (buttonVal === 'unclaim') {
-				claimingEntity = null
-				actionType = 'UNCLAIM_ITEM'
-				claimed = false
-			}
-			else {
-				claimingEntity = utils.getCurrentUser()
-				actionType = 'CLAIM_ITEM'
-				claimed = true
-			}
-
-			this.props.dispatch({
-				type: "CLAIMING",
-				itemId: this.props.item._id
-			})
-
-			request
-				.put(`/api/item/${this.props.item._id}`)
-				.send({
-					claimedBy: claimingEntity,
-					claimed: claimed
-				})
-				.end((err,resp) => {
-					if (err) {
-						alert('problem claiming item')
-						console.log(err)
-					}
-					else {
-						this.props.dispatch({
-							type: actionType,
-							itemId: this.props.item._id
-						})
-					}
-					this.props.dispatch({
-						type: "CLAIMED"
-					})
-				})
+const itemSource = {
+	beginDrag(props) {
+		return {
+			itemId: props.item._id,
+			origListId: props.item.listId
 		}
+	},
 
-	render() {
-		return (
-			<button 
-				onClick={this.handleClaim} 
-				value={this.props.claimAction}
-				className="claim-button">
-				{this.props.claimAction}
-			</button>
-			)
+	endDrag(props) {
+		return {
+			itemId: props.item._id,
+			origListId: props.item.listId
+		}
 	}
 }
 
-const LoaderClaimButton = loader(ClaimButton)
+function sourceCollect(connect,monitor) {
+	return {
+		connectDragSource: connect.dragSource(),
+		isDragging: monitor.isDragging()
+	}
+}
 
 class Item extends React.Component {
 	constructor(props) {
@@ -112,9 +73,10 @@ class Item extends React.Component {
 		}
 		return (
 			<div className={'list-item ' + claimClass} >
-				<div className="flex-wrapper-item-name"><p>{this.props.item.name}</p></div>
+				{this.props.connectDragSource(
+					<div className="flex-wrapper-item-name"><p>{this.props.item.name}</p></div>
+					)}
 				<div className="flex-wrapper-claim-button">
-					{console.log(this.props.itemBeingClaimed)}
 					<LoaderClaimButton {...this.props} claimAction={claimAction} loaded={this.props.itemBeingClaimed !== this.props.item._id} />
 					}
 				</div>
@@ -125,4 +87,4 @@ class Item extends React.Component {
 	}
 }
 
-export default Item
+export default DragSource(componentTypes.ITEM,itemSource,sourceCollect)(Item)

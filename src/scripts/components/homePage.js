@@ -1,11 +1,13 @@
 import React from 'react'
 import request from 'superagent'
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import ListsContainer from './listsContainer.js'
 import loader from './loader.js'
 import * as utils from '../utils.js'
 
-class HomePage extends React.Component {
+class Page extends React.Component {
 	constructor(props) {
 		super(props)
 		this.loadItems = this.loadItems.bind(this)
@@ -65,5 +67,6 @@ class HomePage extends React.Component {
 	}
 }
 	
+var HomePage = DragDropContext(HTML5Backend)(Page)
 
 export default HomePage

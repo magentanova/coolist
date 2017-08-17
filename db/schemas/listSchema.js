@@ -7,7 +7,8 @@ const Schema = mongoose.Schema;
 // ----------------------
 const listSchema = new Schema({
 	name: {type: String, required: true},
-	groupId: {type: String, required: true}
+	groupId: {type: String, required: true},
+	index: {type: Number, required: true}
 })
 
 module.exports = {

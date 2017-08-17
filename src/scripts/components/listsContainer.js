@@ -31,7 +31,7 @@ const ListsContainer = props => {
 
 	return (
 		<div className='lists-container'>
-			{utils.map(props.lists, list =>
+			{utils.sortBy(Object.values(props.lists),'index').map(list =>
 				<LoaderList 
 					{...props}
 					loaded={props.listBeingDeleted !== list._id}

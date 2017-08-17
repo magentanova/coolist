@@ -55,7 +55,8 @@ class AddList extends React.Component {
 			.post('/api/list')
 			.send({
 				name: e.target.listName.value,
-				groupId: utils.getCurrentUser().groupId
+				groupId: utils.getCurrentUser().groupId,
+				index: Object.values(this.props.lists).length
 			})
 			.set('Accept','application/json')
 			.end((err,res) => {

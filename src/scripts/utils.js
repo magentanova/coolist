@@ -1,5 +1,13 @@
 import request from 'superagent'
 
+export const getClassName = (base, conditions) => {
+	var fullClass = base
+	for (var prop in conditions) {
+		fullClass = conditions[prop] ? (fullClass + ' ' + prop) : fullClass
+	}
+	return fullClass
+}
+
 export const getCurrentUser = () =>
 	JSON.parse(localStorage.getItem(['coolist_user'])) ? JSON.parse(localStorage.getItem(['coolist_user'])) : null
 
@@ -13,6 +21,7 @@ export const getUpdatedObj = (obj,key,val) => {
 
 export const init = () => {
 	var cookieTable = parseCookies()
+	console.log(cookieTable.coolist_user)
 	localStorage.setItem('coolist_user',JSON.parse(cookieTable.coolist_user) ? cookieTable.coolist_user : null)
 }
 
@@ -59,7 +68,7 @@ export const parseCookies = () => {
 
 	pairs.forEach(pairStr => {
 		var keyVal = pairStr.split('=')
-		cookieTable[keyVal[0]] = decodeURIComponent(keyVal[1])
+		cookieTable[keyVal[0].trim()] = decodeURIComponent(keyVal[1].trim())
 	})
 	return cookieTable
 }
@@ -77,6 +86,19 @@ export const removeById = (obj,id) => {
 	console.log(Object.keys(obj), Object.keys(newObj))
 	return newObj
 }
+
+export const sortBy = (arr,prop) => 
+	arr.sort(function(a,b) {
+		if (a.index < b.index) {
+			return -1
+		}
+		else if (a.index > b.index) {
+			return 1
+		}
+		else {
+			return 0
+		}
+	})
 
 export const updateCurrentUser = (user) => {
 	localStorage.setItem('coolist_user', JSON.stringify(user))

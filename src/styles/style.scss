@@ -163,6 +163,14 @@ button {
 			// border-top: none;
 		}
 
+		&.drop-zone {
+			background: lighten($bgColor,5);
+		}
+
+		&.drop-zone * {
+			visibility: hidden;
+		}
+
 		.list-header {
 			h2,button {
 				cursor: pointer;

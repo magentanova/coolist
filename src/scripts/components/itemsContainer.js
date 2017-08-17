@@ -89,7 +89,6 @@ class ItemAdder extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.listSavingNewItem!== this.props.list._id)
 		return (
 			<form 
 				className={`${this.props.addingItem ? '' : 'not-there'} list-item item-adder`}
