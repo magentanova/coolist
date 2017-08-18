@@ -48,7 +48,7 @@ const listTarget = {
 			request
 				.put(`/api/item/${droppedItem.itemId}`)
 				.send({
-					listId: droppedItem.newListId
+					listId: props.list._id
 				})
 				.end(function() {
 					dispatch({

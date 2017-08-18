@@ -5,7 +5,7 @@ $accentColor: #C05746;
 $hisColor: #6E8898;
 $herColor: #F1BF98;
 
-// universals
+// tag universals
 * {
 	font-family: Helvetica, Arial, sans-serif;
 	box-sizing: border-box;
@@ -71,15 +71,14 @@ button {
 	padding: .25rem .5srem;
 }
 
-// universals
+// universal classes
 .not-there {
 	display: none !important;
 }
 
 .dragging {
-	opacity: .6;
+	opacity: .5;
 }
-//
 
 .his {
 	background: $hisColor;
@@ -88,6 +87,7 @@ button {
 .hers {
 	background: $herColor;
 }
+
 // modals
 
 .modal-container {
