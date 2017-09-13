@@ -15,6 +15,7 @@ class Modals extends React.Component {
 			<div>
 				<AddList {...this.props} active={this.props.modal.name === 'addList'}  />
 				<DeleteList {...this.props} active={this.props.modal.name === 'deleteList'} />
+				<EnterPin {...this.props} active={this.props.modal.name === 'enterPin'} />
 			</div>
 			)
 	}
@@ -116,8 +117,6 @@ const handleDeleteList = props => {
 		})
 	}
 
-
-
 const DeleteList = props =>
 	<div className={props.active ? 'modal-container' : 'modal-container not-there'}>
 		<div className="modal">
@@ -126,5 +125,75 @@ const DeleteList = props =>
 			<button className="cancel-button" onClick={()=>props.dispatch({type:'CLOSE_MODAL'})}>never mind</button>
 		</div>
 	</div>
+
+
+var count = 0,
+	pin = ''
+
+class EnterPin extends React.Component {
+	constructor(props) {
+		super(props)
+		this.receiveNum = this.receiveNum.bind(this)
+		this.state = {
+			pinballs: 0
+		}
+	}
+
+	receiveNum(e) {
+		pin += e.target.value
+		count += 1
+		if (count < 5) {
+			this.setState({
+				pinballs: this.state.pinballs + 1
+			})
+		}
+		if (count === 4) {
+			request
+				.post('/auth/checkPin')
+				.send({
+					code: pin
+				})
+				.end((err,res) => {
+					count = 0
+					pin = ''
+					this.setState({
+						pinballs: count
+					})
+					if (err) {
+						alert('bad pin! try again.')
+					}
+					else {
+						utils.updateCurrentUser(this.props.modal.userData)
+						this.props.dispatch({
+							type: "CLOSE_MODAL"
+						})
+						location.hash = 'home'
+					}
+				})
+		}
+		if (count > 3) {
+			e.preventDefault()
+		}
+	}
+	
+	render() {
+		return (
+			<div className={this.props.active ? 'modal-container' : 'modal-container not-there'}>
+				<div className="modal pin">
+					<h2>enter your pin code</h2>
+					<h4>{Array(this.state.pinballs).fill(<div className="pinball"></div>)}</h4>
+					<div className="pin-nums">
+						{[1,2,3,4,5,6,7,8,9,0].map(num => 
+							<button 
+								onClick={this.receiveNum} 
+								value={num}>
+								{num}
+							</button>)}
+					</div>
+				</div>
+			</div>
+		)
+	}
+} 
 
 export default Modals

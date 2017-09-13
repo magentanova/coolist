@@ -1,4 +1,6 @@
 import React from 'react'
+import request from 'superagent'
+
 import * as utils from '../utils.js'
 import loader from './loader.js'
 

@@ -24,22 +24,26 @@ export const init = () => {
 	localStorage.setItem('coolist_user',JSON.parse(cookieTable.coolist_user) ? cookieTable.coolist_user : null)
 }
 
-export const login = (email,password) => 
-	request
-		.post('/auth/login')
-		.send({email,password})
-		.set('Accept','application/json')
-		.end(function(err,res) {
-			if (err) {
-				console.log(email,pw)
-				console.log(err)
-				alert('error loggin in')
-			}
-			else {
-				updateCurrentUser(res.body)
-				location.hash = 'home'
-			}
+export const login = (email,password) => {
+	return new Promise((resolver,rejector) => {
+		request
+			.post('/auth/login')
+			.send({email,password})
+			.set('Accept','application/json')
+			.end(function(err,res) {
+				if (err) {
+					console.log(email,pw)
+					console.log(err)
+					alert('error loggin in')
+					rejector()
+				}
+				else {
+					console.log('login ok')
+					resolver(res.body)
+				}
+			})
 		})
+}
 
 export const logout = () =>
 	request

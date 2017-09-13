@@ -11,6 +11,11 @@ const errorHandler = function(err, req, res, next) {
   return
 } 
 
+const cookifyPin = function(req,res,next) {
+  res.cookie('coolist_digits', '3030')
+  next()
+}
+
 const cookifyUser = function(req,res,next) {
   if (req.user) {
     res.cookie('coolist' + '_user',JSON.stringify(req.user))
@@ -37,6 +42,7 @@ const parseQuery = function(req,res,next) {
 module.exports = {
   checkAuth: checkAuth,
   errorHandler: errorHandler,
+  cookifyPin: cookifyPin,
   cookifyUser: cookifyUser,
   parseQuery: parseQuery
 }

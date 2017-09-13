@@ -85,8 +85,7 @@ class List extends React.Component {
 		this.props.dispatch({
 			type: "OPEN_MODAL",
 			modalData: {
-				list: this.props.list,
-				name: 'deleteList'
+				name: 'enterPin'
 			}
 		})
 	}

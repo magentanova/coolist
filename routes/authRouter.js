@@ -2,6 +2,7 @@
 let passport = require ('passport')
 let User = require('../db/schemas/userSchema.js').User
 let checkAuth = require('../config/middleware.js').checkAuth
+let secrets = require('../config/secrets.js')
 
 
 const authRouter = Router()
@@ -68,6 +69,14 @@ authRouter
       res.json({
         msg: 'error: no current user'
       })
+    }
+  })
+  .post('/checkPin', function(req,res) {
+    if (req.body.code === secrets.code) { 
+      res.status(200).send('OK')
+    }
+    else {
+      res.status(400).send('bad pin')
     }
   })
 
